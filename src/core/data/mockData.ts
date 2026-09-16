@@ -261,8 +261,14 @@ export const MOCK_SNAKES: ISnake[] = [
       lethalityRisk:
         'Extremely Critical - Rapid neurological deterioration and respiratory paralysis within 60 minutes.',
     },
-    habitat: 'Paddy fields, wetlands, swamps, bamboo groves, village outskirts.',
-    distribution: ['Bangladesh (Everywhere)', 'India (Eastern States)', 'Nepal', 'Thailand'],
+    habitat:
+      'Paddy fields, wetlands, swamps, bamboo groves, village outskirts.',
+    distribution: [
+      'Bangladesh (Everywhere)',
+      'India (Eastern States)',
+      'Nepal',
+      'Thailand',
+    ],
     imageUrl:
       'https://images.unsplash.com/photo-1531386151447-fd76ad50012f?auto=format&fit=crop&w=800&q=80',
     firstAidSteps: [
@@ -302,7 +308,8 @@ export const MOCK_SNAKES: ISnake[] = [
       lethalityRisk:
         'Extremely Dangerous - Neurotoxic paralysis, though less aggressive by day than common krait.',
     },
-    habitat: 'Agricultural terrain, open countryside, village drains, termite hills.',
+    habitat:
+      'Agricultural terrain, open countryside, village drains, termite hills.',
     distribution: ['Bangladesh', 'India', 'Bhutan', 'Myanmar', 'Thailand'],
     imageUrl:
       'https://images.unsplash.com/photo-1583852085732-b0a68894df55?auto=format&fit=crop&w=800&q=80',
@@ -340,7 +347,8 @@ export const MOCK_SNAKES: ISnake[] = [
       lethalityRisk:
         'Completely Harmless - Often mistakenly killed because its crossbands mimic the deadly Common Krait.',
     },
-    habitat: 'Human residences, kitchen walls, brick crevices, roofs hunting geckos.',
+    habitat:
+      'Human residences, kitchen walls, brick crevices, roofs hunting geckos.',
     distribution: ['Bangladesh', 'India', 'Pakistan', 'Nepal', 'Sri Lanka'],
     imageUrl:
       'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80',
@@ -377,7 +385,8 @@ export const MOCK_SNAKES: ISnake[] = [
       lethalityRisk:
         'Mild - Causes minor local swelling or numbness for a few hours. Poses zero lethal threat to humans.',
     },
-    habitat: 'Trees, shrubs, banana gardens, betel nut plantations, dense foliage.',
+    habitat:
+      'Trees, shrubs, banana gardens, betel nut plantations, dense foliage.',
     distribution: ['Bangladesh', 'India', 'Sri Lanka', 'Southeast Asia'],
     imageUrl:
       'https://images.unsplash.com/photo-1508817628294-5a453fa0b8fb?auto=format&fit=crop&w=800&q=80',
@@ -603,13 +612,16 @@ export const MOCK_PESTS: IPest[] = [
         id: 'agh-trap',
         type: 'organic',
         title: 'Yeast & Sugar Vinegar Bottle Traps',
-        activeIngredient: 'Physical non-chemical pheromone & fermentation attractant',
+        activeIngredient:
+          'Physical non-chemical pheromone & fermentation attractant',
         dosagePerLiter: 0,
         dosageUnit: 'ml',
         commercialExamples: ['Vespa-Trap', 'Wasp Bane Attractant'],
-        optimalTiming: 'Hang on orchard perimeter in early spring when queens establish nests.',
+        optimalTiming:
+          'Hang on orchard perimeter in early spring when queens establish nests.',
         preHarvestIntervalDays: 0,
-        safetyInstructions: 'Hang away from picnic areas. Do not approach active nests without professional protective suits.',
+        safetyInstructions:
+          'Hang away from picnic areas. Do not approach active nests without professional protective suits.',
       },
       {
         id: 'agh-spray',
@@ -619,9 +631,11 @@ export const MOCK_PESTS: IPest[] = [
         dosagePerLiter: 2,
         dosageUnit: 'ml',
         commercialExamples: ['Raid Wasp & Hornet', 'Wasp-Freeze II'],
-        optimalTiming: 'Target nest entrances strictly at nighttime when all hornets are dormant inside.',
+        optimalTiming:
+          'Target nest entrances strictly at nighttime when all hornets are dormant inside.',
         preHarvestIntervalDays: 7,
-        safetyInstructions: 'Never spray during daylight hours. Use red light torches as hornets cannot detect red spectrum.',
+        safetyInstructions:
+          'Never spray during daylight hours. Use red light torches as hornets cannot detect red spectrum.',
       },
     ],
     imageUrl:
@@ -649,7 +663,8 @@ export const MOCK_PESTS: IPest[] = [
       ],
       damageMechanism:
         'Cardiotoxic peptide toxins acting on voltage-gated potassium and sodium channels.',
-      yieldLossPotential: 'Accidental human bites in rural huts, straw piles, and firewood stacks.',
+      yieldLossPotential:
+        'Accidental human bites in rural huts, straw piles, and firewood stacks.',
     },
     stingRemedy:
       'Immerse bite in hot water (40-45°C / comfortably bearable) for 20-30 mins to denature heat-labile venom proteins. Take pain relievers and apply antiseptic.',
@@ -662,7 +677,8 @@ export const MOCK_PESTS: IPest[] = [
         dosagePerLiter: 10,
         dosageUnit: 'g',
         commercialExamples: ['Food Grade DE Powder', 'Bio-Barrier'],
-        optimalTiming: 'Sprinkle around hut perimeter, doors, and beneath sleeping mats.',
+        optimalTiming:
+          'Sprinkle around hut perimeter, doors, and beneath sleeping mats.',
         preHarvestIntervalDays: 0,
         safetyInstructions: 'Completely non-toxic to children and pets.',
       },
@@ -692,7 +708,8 @@ export const MOCK_PESTS: IPest[] = [
       ],
       damageMechanism:
         'Rapid larval chewing strips vegetative canopy, destroying photosynthetic capability.',
-      yieldLossPotential: 'Up to 70% yield devastation in grain and cereal crops.',
+      yieldLossPotential:
+        'Up to 70% yield devastation in grain and cereal crops.',
     },
     treatments: [
       {
@@ -703,9 +720,11 @@ export const MOCK_PESTS: IPest[] = [
         dosagePerLiter: 2,
         dosageUnit: 'g',
         commercialExamples: ['Dipel 2X', 'Biolep', 'Halt'],
-        optimalTiming: 'Apply late evening targeting early instar larvae in whorls.',
+        optimalTiming:
+          'Apply late evening targeting early instar larvae in whorls.',
         preHarvestIntervalDays: 1,
-        safetyInstructions: 'Safe for predatory spiders, ladybird beetles, and pollinators.',
+        safetyInstructions:
+          'Safe for predatory spiders, ladybird beetles, and pollinators.',
       },
       {
         id: 'faw-chem',
@@ -717,7 +736,8 @@ export const MOCK_PESTS: IPest[] = [
         commercialExamples: ['Proclaim 5SG', 'Affirm', 'EmaStar'],
         optimalTiming: 'Direct nozzle spray into leaf whorls early morning.',
         preHarvestIntervalDays: 14,
-        safetyInstructions: 'Wear protective goggles and respirator during mixing.',
+        safetyInstructions:
+          'Wear protective goggles and respirator during mixing.',
       },
     ],
     imageUrl:
@@ -757,7 +777,8 @@ export const MOCK_PESTS: IPest[] = [
         commercialExamples: ['NeemGuard Bio-Wash', 'Safer Soap'],
         optimalTiming: 'Apply at first cluster sighting on flowering branches.',
         preHarvestIntervalDays: 0,
-        safetyInstructions: 'Harmless to humans. Breaks down waxy insect cuticle upon contact.',
+        safetyInstructions:
+          'Harmless to humans. Breaks down waxy insect cuticle upon contact.',
       },
     ],
     imageUrl:
@@ -768,7 +789,6 @@ export const MOCK_PESTS: IPest[] = [
 export const MOCK_HOSPITALS: IEmergencyHospital[] = [
   {
     id: 'dhaka-dmch',
-    name: 'Dhaka Medical College Hospital (Toxicology Unit)',
     name: 'Dhaka Medical College Hospital (DMCH)',
     country: 'BD',
     district: 'Dhaka',
@@ -797,7 +817,6 @@ export const MOCK_HOSPITALS: IEmergencyHospital[] = [
   },
   {
     id: 'rajshahi-rmch',
-    name: 'Rajshahi Medical College Hospital (Snakebite Ward)',
     name: 'Rajshahi Medical College Hospital (RMCH)',
     country: 'BD',
     district: 'Rajshahi',
@@ -807,12 +826,12 @@ export const MOCK_HOSPITALS: IEmergencyHospital[] = [
     address: 'Laxmipur, Rajshahi 6000, Bangladesh',
     latitude: 24.3725,
     longitude: 88.5835,
-    emergencyUnit: 'Dedicated Snakebite Ward & Dialysis Center (High Viper Envenomation Zone)',
+    emergencyUnit:
+      'Dedicated Snakebite Ward & Dialysis Center (High Viper Envenomation Zone)',
     icuAvailable: true,
   },
   {
     id: 'chittagong-cmch',
-    name: 'Chattogram Medical College Hospital (Venom Research Centre)',
     name: 'Chattogram Medical College Hospital (CMCH)',
     country: 'BD',
     district: 'Chattogram',
@@ -848,7 +867,7 @@ export const MOCK_HOSPITALS: IEmergencyHospital[] = [
     hotline: '+88041760350',
     hasAntivenomStock: true,
     address: 'Boyra, Khulna 9000, Bangladesh',
-    latitude: 22.8290,
+    latitude: 22.829,
     longitude: 89.5406,
     emergencyUnit: 'Emergency Department & Antivenom Depository',
     icuAvailable: true,
@@ -933,7 +952,7 @@ export const MOCK_HOSPITALS: IEmergencyHospital[] = [
     hasAntivenomStock: true,
     address: 'Ansari Nagar, New Delhi 110029, India',
     latitude: 28.5672,
-    longitude: 77.2100,
+    longitude: 77.21,
     emergencyUnit: 'National Poison Center Hotline & Emergency',
     icuAvailable: true,
   },

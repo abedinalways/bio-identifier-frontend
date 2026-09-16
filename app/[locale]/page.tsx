@@ -78,35 +78,45 @@ export default function LocalizedHomePage() {
       <HowToFirstAidSchema />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 sm:pt-16 pb-12 bg-linear-to-b from-bg-surface to-bg-app border-b border-border-subtle">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6">
-          {/* Bio-Safety Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-xs sm:text-sm font-semibold shadow-2xs">
-            <Sparkles className="w-4 h-4" />
+      <section className="relative overflow-hidden pt-12 sm:pt-16 pb-12 bg-linear-to-b from-bg-surface via-bg-surface/90 to-bg-app border-b border-border-subtle">
+        {/* Ambient Glow Background Effect */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-80 bg-linear-to-b from-brand-primary/10 via-brand-accent/5 to-transparent blur-3xl pointer-events-none -z-10" />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6 relative">
+          {/* Bio-Safety Badge with Live Ping */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-bg-surface/90 backdrop-blur-md border border-border-subtle shadow-xs text-xs font-semibold text-text-primary">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-primary" />
+            </span>
             <span>{t.app.badge}</span>
+            <span className="text-text-muted">•</span>
+            <span className="text-brand-primary font-bold">
+              Neural Vision AI
+            </span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary leading-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-text-primary leading-[1.15]">
             {t.hero.headline}
           </h1>
 
           {/* Subheadline */}
-          <p className="max-w-3xl mx-auto text-sm sm:text-lg text-text-secondary leading-relaxed">
+          <p className="max-w-3xl mx-auto text-sm sm:text-lg text-text-secondary leading-relaxed font-normal">
             {t.hero.subheadline}
           </p>
 
           {/* Dual Portal Switcher Tabs */}
-          <div className="inline-flex p-1.5 rounded-2xl bg-bg-subtle border border-border-subtle shadow-xs">
+          <div className="inline-flex p-1.5 rounded-2xl bg-bg-subtle border border-border-subtle shadow-inner">
             <button
               type="button"
               onClick={() => {
                 setActivePortal('snake');
                 setIdentificationResult(null);
               }}
-              className={`flex items-center gap-2 px-5 sm:px-8 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all ${
+              className={`flex items-center gap-2.5 px-6 sm:px-9 py-3 rounded-xl font-extrabold text-xs sm:text-sm transition-all ${
                 activePortal === 'snake'
-                  ? 'bg-bg-surface text-venom-deadly border border-venom-deadly/30 shadow-xs'
+                  ? 'bg-bg-surface text-venom-deadly border border-venom-deadly/30 shadow-xs glow-emergency'
                   : 'text-text-muted hover:text-text-primary'
               }`}
             >
@@ -120,15 +130,73 @@ export default function LocalizedHomePage() {
                 setActivePortal('pest');
                 setIdentificationResult(null);
               }}
-              className={`flex items-center gap-2 px-5 sm:px-8 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all ${
+              className={`flex items-center gap-2.5 px-6 sm:px-9 py-3 rounded-xl font-extrabold text-xs sm:text-sm transition-all ${
                 activePortal === 'pest'
-                  ? 'bg-bg-surface text-brand-primary border border-brand-primary/30 shadow-xs'
+                  ? 'bg-bg-surface text-brand-primary border border-brand-primary/30 shadow-xs glow-brand'
                   : 'text-text-muted hover:text-text-primary'
               }`}
             >
               <Bug className="w-4 h-4 text-brand-primary" />
               <span>{t.hero.pestCardTitle}</span>
             </button>
+          </div>
+        </div>
+
+        {/* Trust Metrics Bar */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 rounded-2xl bg-bg-surface/80 border border-border-subtle shadow-2xs backdrop-blur-xs text-xs">
+            <div className="flex items-center gap-2.5 px-3 py-1.5">
+              <div className="w-8 h-8 rounded-xl bg-venom-deadly/10 text-venom-deadly flex items-center justify-center shrink-0">
+                <ShieldAlert className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <span className="font-bold text-text-primary block leading-tight">
+                  Zero Delay
+                </span>
+                <span className="text-[11px] text-text-muted">
+                  Golden Hour Protocol
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 px-3 py-1.5">
+              <div className="w-8 h-8 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">
+                <HeartPulse className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <span className="font-bold text-text-primary block leading-tight">
+                  100% Verified
+                </span>
+                <span className="text-[11px] text-text-muted">
+                  Regional ASV Depots
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 px-3 py-1.5">
+              <div className="w-8 h-8 rounded-xl bg-brand-accent/10 text-brand-accent flex items-center justify-center shrink-0">
+                <Calculator className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <span className="font-bold text-text-primary block leading-tight">
+                  Accurate Dose
+                </span>
+                <span className="text-[11px] text-text-muted">
+                  Knapsack Sprayers
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 px-3 py-1.5">
+              <div className="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center shrink-0">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <span className="font-bold text-text-primary block leading-tight">
+                  Neural Vision
+                </span>
+                <span className="text-[11px] text-text-muted">
+                  Species ID AI
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

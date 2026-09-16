@@ -21,7 +21,7 @@ function calculateDistanceKm(
   lat1: number,
   lon1: number,
   lat2: number,
-  lon2: number
+  lon2: number,
 ): number {
   const R = 6371; // Radius of the Earth in km
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -78,7 +78,7 @@ export const HospitalLocatorSection: React.FC = () => {
         setLocationError(t.hospitalLocator.locationError);
         setIsLocating(false);
       },
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 10000 },
     );
   };
 
@@ -91,7 +91,7 @@ export const HospitalLocatorSection: React.FC = () => {
           userLocation.lat,
           userLocation.lng,
           h.latitude,
-          h.longitude
+          h.longitude,
         );
       }
       return { ...h, distance };
@@ -109,7 +109,7 @@ export const HospitalLocatorSection: React.FC = () => {
         h =>
           h.name.toLowerCase().includes(q) ||
           h.district.toLowerCase().includes(q) ||
-          h.address.toLowerCase().includes(q)
+          h.address.toLowerCase().includes(q),
       );
     }
 
@@ -146,7 +146,9 @@ export const HospitalLocatorSection: React.FC = () => {
             disabled={isLocating}
             className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-emergency-red hover:bg-emergency-hover text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 disabled:opacity-50 shrink-0"
           >
-            <Compass className={`w-4 h-4 ${isLocating ? 'animate-spin' : ''}`} />
+            <Compass
+              className={`w-4 h-4 ${isLocating ? 'animate-spin' : ''}`}
+            />
             <span>
               {isLocating
                 ? t.hospitalLocator.locating
@@ -254,29 +256,32 @@ export const HospitalLocatorSection: React.FC = () => {
           return (
             <div
               key={h.id}
-              className="rounded-3xl border border-border-subtle bg-bg-surface p-6 space-y-5 shadow-xs hover:border-border-strong hover:shadow-md transition-all flex flex-col justify-between relative"
+              className="card-hover rounded-3xl border border-border-subtle bg-bg-surface p-6 space-y-5 shadow-xs hover:border-emergency-red/40 hover:shadow-lg transition-all flex flex-col justify-between relative ring-1 ring-border-subtle/50"
             >
               <div className="space-y-3">
                 {/* Status Badges */}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5">
                     {h.hasAntivenomStock && (
-                      <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-venom-safe-subtle text-venom-safe border border-venom-safe-border text-[11px] font-bold">
+                      <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-venom-safe-subtle text-venom-safe border border-venom-safe-border text-[11px] font-bold shadow-2xs">
                         <ShieldCheck className="w-3.5 h-3.5" />
                         <span>{t.hospitalLocator.asvStocked}</span>
                       </span>
                     )}
                     {h.icuAvailable && (
-                      <span className="px-2.5 py-1 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-[11px] font-bold">
+                      <span className="px-2.5 py-1 rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-[11px] font-bold shadow-2xs">
                         {t.hospitalLocator.icuBadge}
                       </span>
                     )}
                   </div>
 
-                  {/* Calculated Live Distance */}
+                  {/* Calculated Live Distance with Pulse Pin */}
                   {h.distance !== undefined && (
-                    <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emergency-red/10 text-emergency-red font-extrabold text-xs">
-                      <MapPin className="w-3.5 h-3.5" />
+                    <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emergency-red/10 text-emergency-red font-black text-xs border border-emergency-red/20 shadow-2xs">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emergency-red opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emergency-red" />
+                      </span>
                       <span>
                         {h.distance} {t.hospitalLocator.distanceKm}
                       </span>
@@ -285,7 +290,7 @@ export const HospitalLocatorSection: React.FC = () => {
                 </div>
 
                 {/* Hospital Name & Emergency Ward */}
-                <div className="space-y-1">
+                <div className="space-y-1 pt-1">
                   <h3 className="text-base font-bold text-text-primary leading-snug">
                     {h.name}
                   </h3>
@@ -309,7 +314,7 @@ export const HospitalLocatorSection: React.FC = () => {
                 {/* 1-Click Phone Call */}
                 <a
                   href={`tel:${h.hotline}`}
-                  className="py-2.5 px-3 rounded-xl bg-emergency-red hover:bg-emergency-hover text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors active:scale-95"
+                  className="py-2.5 px-3 rounded-xl bg-emergency-red hover:bg-emergency-hover text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emergency-red/20 transition-all active:scale-95"
                 >
                   <PhoneCall className="w-3.5 h-3.5" />
                   <span>{t.hospitalLocator.callHospital}</span>
@@ -320,7 +325,7 @@ export const HospitalLocatorSection: React.FC = () => {
                   href={gmapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl bg-bg-subtle hover:bg-border-subtle border border-border-subtle text-text-primary font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-2xs hover:border-border-strong"
+                  className="py-2.5 px-3 rounded-xl bg-bg-surface hover:bg-bg-subtle border border-border-strong text-text-primary font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs hover:border-brand-primary"
                 >
                   <Navigation className="w-3.5 h-3.5 text-brand-primary" />
                   <span>{t.hospitalLocator.getDirections}</span>
@@ -353,7 +358,8 @@ export const HospitalLocatorSection: React.FC = () => {
               Looking for hospitals outside our verified list?
             </h4>
             <p className="text-xs text-text-secondary">
-              Open Google Maps to view all nearby hospitals and emergency clinics in your immediate area.
+              Open Google Maps to view all nearby hospitals and emergency
+              clinics in your immediate area.
             </p>
           </div>
         </div>

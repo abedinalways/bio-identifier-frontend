@@ -19,7 +19,9 @@ import type { ISnake } from '../../core/interfaces';
 
 export const CommonSnakesSection: React.FC = () => {
   const { locale, t } = useTranslation();
-  const [filter, setFilter] = useState<'all' | 'venomous' | 'harmless' | 'mild'>('all');
+  const [filter, setFilter] = useState<
+    'all' | 'venomous' | 'harmless' | 'mild'
+  >('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSnake, setSelectedSnake] = useState<ISnake | null>(null);
 
@@ -28,7 +30,10 @@ export const CommonSnakesSection: React.FC = () => {
       // Filter tab
       if (filter === 'venomous' && snake.venomProfile.dangerLevel !== 'deadly')
         return false;
-      if (filter === 'harmless' && snake.venomProfile.dangerLevel !== 'harmless')
+      if (
+        filter === 'harmless' &&
+        snake.venomProfile.dangerLevel !== 'harmless'
+      )
         return false;
       if (filter === 'mild' && snake.venomProfile.dangerLevel !== 'mild')
         return false;
@@ -36,7 +41,9 @@ export const CommonSnakesSection: React.FC = () => {
       // Search query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
-        const common = (snake.commonName[locale] || snake.commonName.en).toLowerCase();
+        const common = (
+          snake.commonName[locale] || snake.commonName.en
+        ).toLowerCase();
         const enName = snake.commonName.en.toLowerCase();
         const sciName = snake.scientificName.toLowerCase();
         return common.includes(q) || enName.includes(q) || sciName.includes(q);
@@ -49,9 +56,13 @@ export const CommonSnakesSection: React.FC = () => {
   const counts = useMemo(() => {
     return {
       all: MOCK_SNAKES.length,
-      venomous: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'deadly').length,
-      harmless: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'harmless').length,
-      mild: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'mild').length,
+      venomous: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'deadly')
+        .length,
+      harmless: MOCK_SNAKES.filter(
+        s => s.venomProfile.dangerLevel === 'harmless',
+      ).length,
+      mild: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'mild')
+        .length,
     };
   }, []);
 
@@ -107,7 +118,9 @@ export const CommonSnakesSection: React.FC = () => {
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5" />
-            <span>{t.commonSnakes.filterVenomous} ({counts.venomous})</span>
+            <span>
+              {t.commonSnakes.filterVenomous} ({counts.venomous})
+            </span>
           </button>
           <button
             type="button"
@@ -119,7 +132,9 @@ export const CommonSnakesSection: React.FC = () => {
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>{t.commonSnakes.filterHarmless} ({counts.harmless})</span>
+            <span>
+              {t.commonSnakes.filterHarmless} ({counts.harmless})
+            </span>
           </button>
           {counts.mild > 0 && (
             <button
@@ -132,7 +147,9 @@ export const CommonSnakesSection: React.FC = () => {
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{t.commonSnakes.filterMild} ({counts.mild})</span>
+              <span>
+                {t.commonSnakes.filterMild} ({counts.mild})
+              </span>
             </button>
           )}
         </div>
@@ -159,7 +176,7 @@ export const CommonSnakesSection: React.FC = () => {
           return (
             <div
               key={snake.id}
-              className="group rounded-3xl border border-border-subtle bg-bg-surface overflow-hidden shadow-xs hover:border-border-strong hover:shadow-md transition-all flex flex-col justify-between"
+              className="card-hover group rounded-3xl border border-border-subtle bg-bg-surface overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-lg transition-all flex flex-col justify-between ring-1 ring-border-subtle/50"
             >
               <div>
                 {/* Photo & Badges */}
@@ -170,12 +187,13 @@ export const CommonSnakesSection: React.FC = () => {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
                   <div className="absolute top-3 left-3">
                     <VenomAlertBadge
                       dangerLevel={snake.venomProfile.dangerLevel}
                     />
                   </div>
-                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-xs text-[11px] font-semibold text-white">
+                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-[11px] font-bold text-white border border-white/10 shadow-sm">
                     {snake.family}
                   </div>
                 </div>
@@ -183,7 +201,7 @@ export const CommonSnakesSection: React.FC = () => {
                 {/* Content */}
                 <div className="p-5 space-y-3">
                   <div>
-                    <h3 className="text-base font-bold text-text-primary group-hover:text-brand-primary transition-colors leading-snug">
+                    <h3 className="text-base font-extrabold text-text-primary group-hover:text-brand-primary transition-colors leading-snug">
                       {commonName}
                     </h3>
                     <p className="text-xs italic text-text-muted font-medium mt-0.5">
@@ -193,7 +211,7 @@ export const CommonSnakesSection: React.FC = () => {
 
                   {/* Antivenom Requirement Pill */}
                   <div
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold ${
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold ${
                       isVenomous
                         ? 'bg-venom-deadly-subtle text-venom-deadly border border-venom-deadly-border'
                         : 'bg-venom-safe-subtle text-venom-safe border border-venom-safe-border'
@@ -223,9 +241,9 @@ export const CommonSnakesSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedSnake(snake)}
-                  className="w-full py-2.5 px-3 rounded-xl bg-bg-subtle hover:bg-border-subtle border border-border-subtle text-text-primary font-bold text-xs flex items-center justify-center gap-1.5 transition-colors group-hover:border-border-strong"
+                  className="w-full py-2.5 px-3 rounded-xl bg-bg-subtle hover:bg-brand-primary hover:text-white border border-border-subtle hover:border-brand-primary text-text-primary font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-2xs group/btn"
                 >
-                  <Info className="w-3.5 h-3.5 text-brand-primary" />
+                  <Info className="w-3.5 h-3.5 text-brand-primary group-hover/btn:text-white transition-colors" />
                   <span>{t.commonSnakes.viewDetails}</span>
                 </button>
               </div>
@@ -256,4 +274,3 @@ export const CommonSnakesSection: React.FC = () => {
     </section>
   );
 };
-

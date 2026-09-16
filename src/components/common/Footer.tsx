@@ -13,20 +13,20 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Column 1: Brand & Mission */}
-          <div className="md:col-span-2 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center text-brand-primary-foreground">
-                <ShieldAlert className="w-4 h-4" />
+          <div className="md:col-span-2 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-2xl bg-linear-to-br from-emerald-600 via-teal-600 to-emerald-800 flex items-center justify-center text-white shadow-sm ring-1 ring-emerald-500/30">
+                <ShieldAlert className="w-4 h-4 text-emerald-100" />
               </div>
-              <span className="font-bold text-base text-text-primary">
+              <span className="font-extrabold text-lg text-text-primary tracking-tight">
                 {t.app.title}
               </span>
             </div>
             <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-md">
               {t.app.subtitle}
             </p>
-            <div className="flex items-start gap-2 p-3 rounded-xl bg-bg-subtle border border-border-subtle text-xs text-text-muted">
-              <AlertCircle className="w-4 h-4 shrink-0 text-text-secondary mt-0.5" />
+            <div className="flex items-start gap-2.5 p-3.5 rounded-2xl bg-bg-subtle/80 border border-border-subtle text-xs text-text-muted leading-relaxed">
+              <AlertCircle className="w-4 h-4 shrink-0 text-brand-primary mt-0.5" />
               <p>{t.footer.disclaimer}</p>
             </div>
           </div>

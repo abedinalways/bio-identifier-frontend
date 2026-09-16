@@ -32,7 +32,9 @@ export const CommonInsectsSection: React.FC = () => {
       // Search query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
-        const common = (pest.commonName[locale] || pest.commonName.en).toLowerCase();
+        const common = (
+          pest.commonName[locale] || pest.commonName.en
+        ).toLowerCase();
         const enName = pest.commonName.en.toLowerCase();
         const sciName = pest.scientificName.toLowerCase();
         const crops = pest.damageProfile.affectedCrops.join(' ').toLowerCase();
@@ -108,7 +110,9 @@ export const CommonInsectsSection: React.FC = () => {
             }`}
           >
             <Leaf className="w-3.5 h-3.5" />
-            <span>{t.commonInsects.filterCrop} ({counts.crop})</span>
+            <span>
+              {t.commonInsects.filterCrop} ({counts.crop})
+            </span>
           </button>
           <button
             type="button"
@@ -120,7 +124,9 @@ export const CommonInsectsSection: React.FC = () => {
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5" />
-            <span>{t.commonInsects.filterStinging} ({counts.stinging})</span>
+            <span>
+              {t.commonInsects.filterStinging} ({counts.stinging})
+            </span>
           </button>
         </div>
 
@@ -146,7 +152,7 @@ export const CommonInsectsSection: React.FC = () => {
           return (
             <div
               key={pest.id}
-              className="group rounded-3xl border border-border-subtle bg-bg-surface overflow-hidden shadow-xs hover:border-border-strong hover:shadow-md transition-all flex flex-col justify-between"
+              className="card-hover group rounded-3xl border border-border-subtle bg-bg-surface overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-lg transition-all flex flex-col justify-between ring-1 ring-border-subtle/50"
             >
               <div>
                 {/* Photo & Badges */}
@@ -157,9 +163,10 @@ export const CommonInsectsSection: React.FC = () => {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
                   <div className="absolute top-3 left-3">
                     <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold shadow-xs ${
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold shadow-md ${
                         isStinging
                           ? 'bg-amber-600 text-white'
                           : 'bg-pest-critical text-white'
@@ -167,19 +174,19 @@ export const CommonInsectsSection: React.FC = () => {
                     >
                       {isStinging ? (
                         <>
-                          <AlertTriangle className="w-3 h-3" />
+                          <AlertTriangle className="w-3.5 h-3.5" />
                           <span>Stinging Risk</span>
                         </>
                       ) : (
                         <>
-                          <Leaf className="w-3 h-3" />
+                          <Leaf className="w-3.5 h-3.5" />
                           <span>Crop Destroyer</span>
                         </>
                       )}
                     </span>
                   </div>
 
-                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-xs text-[11px] font-semibold text-white capitalize">
+                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-[11px] font-bold text-white border border-white/10 shadow-sm capitalize">
                     {pest.damageProfile.severity === 'critical'
                       ? 'Critical Impact'
                       : 'Moderate Impact'}
@@ -189,7 +196,7 @@ export const CommonInsectsSection: React.FC = () => {
                 {/* Content */}
                 <div className="p-5 space-y-3">
                   <div>
-                    <h3 className="text-base font-bold text-text-primary group-hover:text-brand-primary transition-colors leading-snug">
+                    <h3 className="text-base font-extrabold text-text-primary group-hover:text-brand-primary transition-colors leading-snug">
                       {commonName}
                     </h3>
                     <p className="text-xs italic text-text-muted font-medium mt-0.5">
@@ -202,7 +209,7 @@ export const CommonInsectsSection: React.FC = () => {
                     {pest.damageProfile.affectedCrops.map(crop => (
                       <span
                         key={crop}
-                        className="px-2 py-0.5 rounded-md bg-bg-subtle text-[11px] font-semibold text-brand-primary border border-border-subtle capitalize"
+                        className="px-2.5 py-0.5 rounded-md bg-brand-primary/5 text-xs font-bold text-brand-primary border border-brand-primary/20 capitalize"
                       >
                         {crop}
                       </span>
@@ -221,9 +228,9 @@ export const CommonInsectsSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setSelectedPest(pest)}
-                  className="w-full py-2.5 px-3 rounded-xl bg-bg-subtle hover:bg-border-subtle border border-border-subtle text-text-primary font-bold text-xs flex items-center justify-center gap-1.5 transition-colors group-hover:border-border-strong"
+                  className="w-full py-2.5 px-3 rounded-xl bg-bg-subtle hover:bg-brand-primary hover:text-white border border-border-subtle hover:border-brand-primary text-text-primary font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-2xs group/btn"
                 >
-                  <Info className="w-3.5 h-3.5 text-brand-primary" />
+                  <Info className="w-3.5 h-3.5 text-brand-primary group-hover/btn:text-white transition-colors" />
                   <span>{t.commonInsects.viewRemedy}</span>
                 </button>
               </div>
