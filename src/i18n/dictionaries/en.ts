@@ -1,0 +1,180 @@
+export const en = {
+  app: {
+    title: 'Bio-Identifier',
+    subtitle:
+      'Protecting Lives from Snakebites & Safeguarding Agriculture from Pests',
+    badge: 'AI-Powered Bio-Safety for South & Southeast Asia',
+  },
+  nav: {
+    home: 'Home',
+    snakes: 'Snake Identifier',
+    antivenom: 'Antivenom Guide',
+    firstAid: 'Golden Hour First Aid',
+    pests: 'Crop Pest Identifier',
+    dosage: 'Dosage Calculator',
+    emergency: 'Emergency SOS',
+    encyclopedia: 'Species Library',
+  },
+  hero: {
+    headline: 'Instant Snake & Crop Pest Identification',
+    subheadline:
+      'Upload or capture a photo. Immediately discover if a snake is venomous with antivenom recommendations, or diagnose crop pests with pesticide dosage and harvest safety guidelines.',
+    snakeCardTitle: 'Snake Identifier & Antivenom',
+    snakeCardDesc:
+      'Distinguish dangerous venomous snakes from harmless species, check polyvalent antivenom availability, and follow validated medical first-aid.',
+    pestCardTitle: 'Crop & Fruit Pest Diagnosis',
+    pestCardDesc:
+      'Protect mango, litchi, paddy, and vegetable yields. Identify pests, calculate exact knapsack sprayer dilution, and review organic vs chemical options.',
+    ctaSnake: 'Identify Snake Now',
+    ctaPest: 'Diagnose Crop Pest',
+    emergencyBanner: 'Snakebite Emergency? Call National Hotline Immediately!',
+  },
+  capture: {
+    uploadTitle: 'Upload or Capture Photo',
+    uploadSubtitle: 'JPG, PNG, or WebP up to 10MB',
+    cameraButton: 'Open Camera',
+    browseButton: 'Browse Files',
+    dragDrop: 'Drag and drop your photo here',
+    regionLabel: 'Your Region (Enhances Accuracy)',
+    cropLabel: 'Select Affected Crop/Fruit',
+    analyzing: 'Analyzing photo with Neural Bio-Vision...',
+    submitBtn: 'Identify Now',
+  },
+  snake: {
+    badgeVenomous: 'VENOMOUS (DEADLY DANGER)',
+    badgeMild: 'MILDLY VENOMOUS (LOW RISK)',
+    badgeSafe: 'NON-VENOMOUS (HARMLESS)',
+    confidence: 'Detection Confidence',
+    scientificName: 'Scientific Name',
+    commonNames: 'Common & Vernacular Names',
+    family: 'Family',
+    habitat: 'Habitat & Behavior',
+    antivenomRequired: 'Antivenom Required',
+    antivenomNotRequired: 'No Antivenom Needed',
+    antivenomType: 'Antivenom Type (ASV)',
+    commercialBrands: 'Approved Regional Commercial Brands',
+    warningDoctor:
+      'CRITICAL MEDICAL WARNING: Antivenom must strictly be administered by a qualified doctor in a medical facility equipped to handle anaphylaxis. Never self-inject!',
+    firstAidTitle: 'Golden Hour Medical First-Aid Protocol',
+    firstAidDosTitle: 'WHAT TO DO (LIFE SAVING):',
+    firstAidDos: [
+      'Keep the patient calm and reassure them to slow venom dissemination.',
+      'Immobilize the bitten limb using a splint or rigid support (like a broken bone).',
+      'Remove tight rings, bangles, watches, or restrictive footwear immediately before swelling starts.',
+      'Transport the patient immediately to the nearest Upazila/District hospital or medical college.',
+    ],
+    firstAidDontsTitle: 'WHAT NEVER TO DO (FATAL MISTAKES):',
+    firstAidDonts: [
+      'NEVER tie tight arterial tourniquets (cords, wires) which cause gangrene and amputation.',
+      'NEVER make incisions, cuts, or apply suction to the bite wound.',
+      'NEVER apply chemicals, battery acid, herbs, cow dung, or traditional mud pastes.',
+      'NEVER waste time visiting traditional quacks ("Ojha" / "Gunin"). Every minute counts.',
+    ],
+    ecologicalNote:
+      'Ecological Note: Non-venomous snakes are vital for agriculture as natural rodent control. Please do not kill harmless snakes!',
+  },
+  pest: {
+    severityHigh: 'Severe Infestation (Immediate Action Required)',
+    severityModerate: 'Moderate Damage (Monitor & Treat)',
+    severityLow: 'Low / Early Stage Infestation',
+    affectedCrops: 'Host Crops & Fruits',
+    symptomsTitle: 'Damage Symptoms & Mechanisms',
+    organicTitle: 'Bio / Organic Solution (First-Line Defense)',
+    chemicalTitle: 'Targeted Chemical Pesticide (Emergency)',
+    activeIngredient: 'Active Ingredient',
+    dosagePerLiter: 'Dilution Rate per Liter of Water',
+    applicationTiming: 'Optimal Spray Window',
+    timingTip:
+      'Spray during early morning or late afternoon to avoid burning leaves and harming beneficial pollinators (bees).',
+    phiTitle: 'Pre-Harvest Interval (PHI)',
+    phiDays: 'Days required before harvest for safe human consumption',
+    safetyGear:
+      'Safety Requirement: Always wear mask, goggles, and gloves while mixing and spraying.',
+  },
+  dosageCalc: {
+    title: 'Knapsack Sprayer Dosage Calculator',
+    tankSizeLabel: 'Sprayer Tank Capacity (Liters)',
+    standardTanks: 'Common sizes: 10L, 16L, 20L',
+    calcResult: 'Exact Pesticide Quantity Needed',
+    waterVolume: 'Total Water Required',
+    instructions:
+      '1. Fill the tank halfway with clean water. 2. Measure the exact chemical dose. 3. Mix thoroughly. 4. Top up with remaining water.',
+  },
+  emergency: {
+    title: 'Emergency Medical Directories',
+    hotlineHeader: 'National Poison & Emergency Hotlines',
+    bdText: 'Bangladesh: Health Line 16263 | National Emergency 999',
+    inText: 'India: Emergency 108 / 112 | Poison Center 1800-116-117',
+    pkText: 'Pakistan: Emergency Rescue 1122',
+    hospitalFinder: 'Locate Nearest Government Hospital with ASV Supply',
+    callNow: 'Call Hotline Now',
+  },
+  commonSnakes: {
+    title: 'Common Regional Snakes & Venom Toxicity',
+    subtitle:
+      'Quick identification reference to distinguish deadly venomous vipers and cobras from harmless, ecologically vital rat snakes that safeguard agriculture.',
+    badge: 'South Asian Reptile Directory',
+    filterAll: 'All Snakes',
+    filterVenomous: 'Deadly Venomous',
+    filterHarmless: 'Non-Venomous (Safe)',
+    filterMild: 'Mildly Venomous',
+    searchPlaceholder: 'Search snake by common or scientific name...',
+    viewDetails: 'View Full Profile & First Aid',
+    asvRequired: 'Polyvalent ASV Required',
+    asvSafe: 'No Antivenom Needed',
+    exploreAll: 'Explore Full Snake Encyclopedia',
+  },
+  commonInsects: {
+    title: 'Common Agricultural Pests & Stinging Insects',
+    subtitle:
+      'Recognize destructive crop-damaging pests attacking orchards and paddies, alongside venomous stinging wasps and centipedes with biological solutions.',
+    badge: 'Crop Protection & Insect Safety',
+    filterAll: 'All Insects',
+    filterCrop: 'Crop & Fruit Pests',
+    filterStinging: 'Stinging / Biting',
+    searchPlaceholder: 'Search insect by name or crop...',
+    viewRemedy: 'View Symptoms & Remedy',
+    targetCrops: 'Target Crops',
+    stingCare: 'First Aid for Stings',
+    exploreAll: 'Explore Full Pest Knowledge Base',
+  },
+  hospitalLocator: {
+    title: 'Nearest Snakebite Hospitals & Antivenom Centers',
+    subtitle:
+      'Instantly locate government hospitals and medical college toxicology wards equipped with Anti-Snake Venom (ASV) and ICU facilities nearest to you.',
+    badge: 'Live GPS Emergency Locator',
+    findNearMe: 'Find Nearest Hospitals Near Me (GPS)',
+    locating: 'Acquiring GPS location...',
+    locationError:
+      'Location access was unavailable. Please select your division below or search manually.',
+    allDivisions: 'All Divisions / Regions',
+    filterDivision: 'Select Division / State',
+    asvStocked: 'Verified ASV Stocked',
+    icuBadge: 'ICU / Ventilator Ready',
+    callHospital: 'Call Emergency Ward',
+    getDirections: 'GPS Driving Directions',
+    distanceKm: 'km away',
+    searchGoogleMaps: 'Search Emergency Hospitals on Google Maps',
+    emergencyRuleTitle: 'CRITICAL GOLDEN HOUR PROTOCOL',
+    emergencyRuleDesc:
+      'Never tie tight tourniquets or cut/burn the wound. Keep patient calm, immobilize the bitten limb, and rush immediately to an ASV-equipped facility.',
+  },
+  speciesModal: {
+    scientificName: 'Scientific Classification',
+    dangerLevel: 'Venom Toxicity & Threat Level',
+    habitat: 'Natural Habitat & Distribution',
+    firstAid: 'Golden Hour Medical First Aid',
+    ecologicalRole: 'Ecological Value in Agriculture',
+    mythsDebunked: 'Superstitions vs Scientific Facts',
+    treatments: 'Recommended Integrated Treatments',
+    close: 'Close Window',
+  },
+  footer: {
+    disclaimer:
+      'Disclaimer: This application serves as a rapid preliminary bio-identification aid and agricultural guidance tool. In snakebite emergencies, always consult certified medical physicians at the nearest hospital immediately.',
+    rights:
+      'All rights reserved. Built for public safety and sustainable agriculture.',
+  },
+};
+
+export type TranslationDictionary = typeof en;

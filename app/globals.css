@@ -1,26 +1,152 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces & Backgrounds */
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f1f5f9;
+  --bg-muted: #e2e8f0;
+
+  /* Text & Typography */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Borders */
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Brand / Ecosystem */
+  --brand-primary: #059669;
+  --brand-primary-hover: #047857;
+  --brand-primary-foreground: #ffffff;
+  --brand-accent: #0284c7;
+  --brand-accent-foreground: #ffffff;
+
+  /* Snake & Venom Status (Life-Critical) */
+  --venom-deadly: #dc2626;
+  --venom-deadly-foreground: #ffffff;
+  --venom-deadly-subtle: #fef2f2;
+  --venom-deadly-border: #fca5a5;
+
+  --venom-mild: #d97706;
+  --venom-mild-foreground: #ffffff;
+  --venom-mild-subtle: #fffbeb;
+  --venom-mild-border: #fcd34d;
+
+  --venom-safe: #16a34a;
+  --venom-safe-foreground: #ffffff;
+  --venom-safe-subtle: #f0fdf4;
+  --venom-safe-border: #86efac;
+
+  --antivenom-tag: #0284c7;
+  --antivenom-foreground: #ffffff;
+  --antivenom-subtle: #f0f9ff;
+  --antivenom-border: #bae6fd;
+
+  /* Agricultural Pest Status (Crop-Critical) */
+  --pest-critical: #e11d48;
+  --pest-critical-foreground: #ffffff;
+  --pest-critical-subtle: #fff1f2;
+
+  --pest-organic: #15803d;
+  --pest-organic-foreground: #ffffff;
+  --pest-organic-subtle: #ecfdf5;
+  --pest-organic-border: #a7f3d0;
+
+  --pest-chemical: #7c3aed;
+  --pest-chemical-foreground: #ffffff;
+  --pest-chemical-subtle: #f5f3ff;
+  --pest-chemical-border: #ddd6fe;
+
+  --pest-phi-badge: #ea580c;
+  --pest-phi-foreground: #ffffff;
+  --pest-phi-subtle: #fff7ed;
+
+  /* Emergency SOS */
+  --emergency-red: #b91c1c;
+  --emergency-hover: #991b1b;
+  --emergency-foreground: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-bg-app: var(--bg-app);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-muted: var(--bg-muted);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-foreground: var(--brand-primary-foreground);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-foreground: var(--brand-accent-foreground);
+
+  --color-venom-deadly: var(--venom-deadly);
+  --color-venom-deadly-foreground: var(--venom-deadly-foreground);
+  --color-venom-deadly-subtle: var(--venom-deadly-subtle);
+  --color-venom-deadly-border: var(--venom-deadly-border);
+
+  --color-venom-mild: var(--venom-mild);
+  --color-venom-mild-foreground: var(--venom-mild-foreground);
+  --color-venom-mild-subtle: var(--venom-mild-subtle);
+  --color-venom-mild-border: var(--venom-mild-border);
+
+  --color-venom-safe: var(--venom-safe);
+  --color-venom-safe-foreground: var(--venom-safe-foreground);
+  --color-venom-safe-subtle: var(--venom-safe-subtle);
+  --color-venom-safe-border: var(--venom-safe-border);
+
+  --color-antivenom-tag: var(--antivenom-tag);
+  --color-antivenom-foreground: var(--antivenom-foreground);
+  --color-antivenom-subtle: var(--antivenom-subtle);
+  --color-antivenom-border: var(--antivenom-border);
+
+  --color-pest-critical: var(--pest-critical);
+  --color-pest-critical-foreground: var(--pest-critical-foreground);
+  --color-pest-critical-subtle: var(--pest-critical-subtle);
+
+  --color-pest-organic: var(--pest-organic);
+  --color-pest-organic-foreground: var(--pest-organic-foreground);
+  --color-pest-organic-subtle: var(--pest-organic-subtle);
+  --color-pest-organic-border: var(--pest-organic-border);
+
+  --color-pest-chemical: var(--pest-chemical);
+  --color-pest-chemical-foreground: var(--pest-chemical-foreground);
+  --color-pest-chemical-subtle: var(--pest-chemical-subtle);
+  --color-pest-chemical-border: var(--pest-chemical-border);
+
+  --color-pest-phi-badge: var(--pest-phi-badge);
+  --color-pest-phi-foreground: var(--pest-phi-foreground);
+  --color-pest-phi-subtle: var(--pest-phi-subtle);
+
+  --color-emergency-red: var(--emergency-red);
+  --color-emergency-hover: var(--emergency-hover);
+  --color-emergency-foreground: var(--emergency-foreground);
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom RTL Typography Support for Urdu */
+[dir='rtl'] {
+  text-align: right;
+  direction: rtl;
 }
