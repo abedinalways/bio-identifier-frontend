@@ -5,11 +5,20 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
     prepareHeaders: headers => {
-      // You can append auth tokens or custom device headers here
       headers.set('X-Client-Platform', 'web-next16');
+
+      const token =
+        typeof window !== 'undefined'
+          ? localStorage.getItem('bio_auth_token')
+          : null;
+
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+
       return headers;
     },
   }),
-  tagTypes: ['Snakes', 'Pests', 'Antivenom', 'Emergency'],
+  tagTypes: ['Snakes', 'Pests', 'Antivenom', 'Emergency', 'Users', 'Auth'],
   endpoints: () => ({}),
 });

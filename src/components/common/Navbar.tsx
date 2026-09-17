@@ -13,6 +13,7 @@ import {
   X,
   BookOpen,
   Calculator,
+  ShieldCheck,
 } from 'lucide-react';
 import { useTranslation } from '../../i18n/LocaleContext';
 import {
@@ -179,6 +180,15 @@ export function Navbar() {
               )}
             </div>
 
+            {/* Admin Portal Button */}
+            <Link
+              href={`/${locale}/admin`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-brand-primary/30 bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary text-xs font-bold transition shadow-2xs"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Admin</span>
+            </Link>
+
             {/* Mobile Menu Toggle */}
             <button
               type="button"
@@ -220,6 +230,14 @@ export function Navbar() {
               </Link>
             );
           })}
+          <Link
+            href={`/${locale}/admin`}
+            onClick={() => setIsMenuOpen(false)}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-base font-bold text-brand-primary bg-brand-primary/10 mt-2"
+          >
+            <ShieldCheck className="w-5 h-5" />
+            <span>Admin Portal</span>
+          </Link>
         </div>
       )}
     </header>
