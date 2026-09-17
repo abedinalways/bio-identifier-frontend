@@ -15,10 +15,12 @@ import { useTranslation } from '../../i18n/LocaleContext';
 import { VenomAlertBadge } from '../snakes/VenomAlertBadge';
 import { SpeciesModal } from './SpeciesModal';
 import { MOCK_SNAKES } from '../../core/data/mockData';
+import { useGetSnakesListQuery } from '../../store/api/snakeApi';
 import type { ISnake } from '../../core/interfaces';
 
 export const CommonSnakesSection: React.FC = () => {
   const { locale, t } = useTranslation();
+  const { data: snakes = MOCK_SNAKES } = useGetSnakesListQuery();
   const [filter, setFilter] = useState<
     'all' | 'venomous' | 'harmless' | 'mild'
   >('all');
@@ -26,16 +28,16 @@ export const CommonSnakesSection: React.FC = () => {
   const [selectedSnake, setSelectedSnake] = useState<ISnake | null>(null);
 
   const filteredSnakes = useMemo(() => {
-    return MOCK_SNAKES.filter(snake => {
+    return snakes.filter(snake => {
       // Filter tab
-      if (filter === 'venomous' && snake.venomProfile.dangerLevel !== 'deadly')
+      if (filter === 'venomous' && snake.venomProfile?.dangerLevel !== 'deadly')
         return false;
       if (
         filter === 'harmless' &&
-        snake.venomProfile.dangerLevel !== 'harmless'
+        snake.venomProfile?.dangerLevel !== 'harmless'
       )
         return false;
-      if (filter === 'mild' && snake.venomProfile.dangerLevel !== 'mild')
+      if (filter === 'mild' && snake.venomProfile?.dangerLevel !== 'mild')
         return false;
 
       // Search query
@@ -51,20 +53,18 @@ export const CommonSnakesSection: React.FC = () => {
 
       return true;
     });
-  }, [filter, searchQuery, locale]);
+  }, [filter, searchQuery, locale, snakes]);
 
   const counts = useMemo(() => {
     return {
-      all: MOCK_SNAKES.length,
-      venomous: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'deadly')
+      all: snakes.length,
+      venomous: snakes.filter(s => s.venomProfile?.dangerLevel === 'deadly')
         .length,
-      harmless: MOCK_SNAKES.filter(
-        s => s.venomProfile.dangerLevel === 'harmless',
-      ).length,
-      mild: MOCK_SNAKES.filter(s => s.venomProfile.dangerLevel === 'mild')
+      harmless: snakes.filter(s => s.venomProfile?.dangerLevel === 'harmless')
         .length,
+      mild: snakes.filter(s => s.venomProfile?.dangerLevel === 'mild').length,
     };
-  }, []);
+  }, [snakes]);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

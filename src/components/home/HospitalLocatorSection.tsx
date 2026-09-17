@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from '../../i18n/LocaleContext';
 import { MOCK_HOSPITALS } from '../../core/data/mockData';
+import { useGetEmergencyHospitalsQuery } from '../../store/api/emergencyApi';
 
 function calculateDistanceKm(
   lat1: number,
@@ -38,6 +39,7 @@ function calculateDistanceKm(
 
 export const HospitalLocatorSection: React.FC = () => {
   const { t } = useTranslation();
+  const { data: hospitals = MOCK_HOSPITALS } = useGetEmergencyHospitalsQuery();
   const [userLocation, setUserLocation] = useState<{
     lat: number;
     lng: number;
@@ -47,14 +49,14 @@ export const HospitalLocatorSection: React.FC = () => {
   const [selectedDivision, setSelectedDivision] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Extract unique divisions from mock data
+  // Extract unique divisions from hospital data
   const divisions = useMemo(() => {
     const set = new Set<string>();
-    MOCK_HOSPITALS.forEach(h => {
+    hospitals.forEach(h => {
       if (h.division) set.add(h.division);
     });
     return Array.from(set);
-  }, []);
+  }, [hospitals]);
 
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
@@ -84,7 +86,7 @@ export const HospitalLocatorSection: React.FC = () => {
 
   // Process and sort hospitals
   const sortedHospitals = useMemo(() => {
-    let list = MOCK_HOSPITALS.map(h => {
+    let list = hospitals.map(h => {
       let distance: number | undefined = undefined;
       if (userLocation) {
         distance = calculateDistanceKm(

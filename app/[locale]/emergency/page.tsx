@@ -7,20 +7,82 @@ import {
   ShieldCheck,
   MapPin,
   Navigation,
+  AlertTriangle,
+  Radio,
+  CheckCircle2,
+  Send,
 } from 'lucide-react';
 import { useTranslation } from '../../../src/i18n/LocaleContext';
 import { MOCK_HOSPITALS } from '../../../src/core/data/mockData';
+import {
+  useGetEmergencyHospitalsQuery,
+  useGetHotlinesQuery,
+  useTriggerSosCallMutation,
+} from '../../../src/store/api/emergencyApi';
 
 export default function EmergencyPage() {
   const { t } = useTranslation();
   const [countryFilter, setCountryFilter] = useState<
     'ALL' | 'BD' | 'IN' | 'PK'
   >('ALL');
+  const [callerPhone, setCallerPhone] = useState('');
+  const [sosNotes, setSosNotes] = useState('');
+  const [sosSuccess, setSosSuccess] = useState<{
+    logId: string;
+    instructions: string[];
+  } | null>(null);
 
-  const filteredHospitals = MOCK_HOSPITALS.filter(h => {
-    if (countryFilter === 'ALL') return true;
-    return h.country === countryFilter;
-  });
+  const { data: hospitals = MOCK_HOSPITALS, isLoading: isHospitalsLoading } =
+    useGetEmergencyHospitalsQuery(
+      countryFilter !== 'ALL' ? { country: countryFilter } : undefined,
+    );
+
+  const { data: hotlines } = useGetHotlinesQuery();
+  const [triggerSos, { isLoading: isSosDispatching }] =
+    useTriggerSosCallMutation();
+
+  const handleSosDispatch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      let lat: number | undefined;
+      let lng: number | undefined;
+
+      if (navigator.geolocation) {
+        try {
+          const pos = await new Promise<GeolocationPosition>(
+            (resolve, reject) => {
+              navigator.geolocation.getCurrentPosition(resolve, reject, {
+                timeout: 3000,
+              });
+            },
+          );
+          lat = pos.coords.latitude;
+          lng = pos.coords.longitude;
+        } catch {
+          // GPS optional
+        }
+      }
+
+      const res = await triggerSos({
+        callerPhone: callerPhone || undefined,
+        latitude: lat,
+        longitude: lng,
+        notes: sosNotes || 'Emergency snakebite SOS alert from web portal',
+      }).unwrap();
+
+      setSosSuccess({
+        logId: res.logId,
+        instructions: res.instructions || [
+          'Keep patient completely still to delay venom diffusion.',
+          'Immobilize bitten limb with a rigid splint at heart level.',
+          'Rush immediately to an emergency hospital with ASV.',
+        ],
+      });
+      setSosNotes('');
+    } catch (err) {
+      console.error('SOS dispatch error:', err);
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-12">
@@ -38,6 +100,81 @@ export default function EmergencyPage() {
           national emergency hotlines or rush to the nearest government hospital
           equipped with Polyvalent Anti-Snake Venom (ASV).
         </p>
+      </div>
+
+      {/* Emergency SOS Dispatch Interactive Card */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-linear-to-r from-emergency-red/10 via-bg-surface to-bg-surface border-2 border-emergency-red/30 shadow-md space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 text-emergency-red font-bold text-xs uppercase tracking-wider">
+              <Radio className="w-4 h-4 animate-pulse" />
+              <span>Real-Time Medical SOS Dispatch</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-text-primary">
+              Log Emergency Incident to Regional Network
+            </h2>
+            <p className="text-xs sm:text-sm text-text-secondary">
+              Transmits your coordinates and victim phone number to our
+              emergency database.
+            </p>
+          </div>
+        </div>
+
+        {sosSuccess ? (
+          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 space-y-3">
+            <div className="flex items-center gap-2 font-bold text-sm">
+              <CheckCircle2 className="w-5 h-5" />
+              <span>SOS Alert Recorded! Reference ID: {sosSuccess.logId}</span>
+            </div>
+            <div className="space-y-1 text-xs text-text-secondary">
+              <p className="font-semibold text-text-primary">
+                Immediate Clinical Protocols:
+              </p>
+              <ul className="list-disc list-inside space-y-0.5">
+                {sosSuccess.instructions.map((inst, idx) => (
+                  <li key={idx}>{inst}</li>
+                ))}
+              </ul>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSosSuccess(null)}
+              className="px-3 py-1.5 rounded-lg bg-bg-surface text-xs font-semibold text-text-primary border border-border-subtle"
+            >
+              Log Another Incident
+            </button>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSosDispatch}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3"
+          >
+            <input
+              type="tel"
+              value={callerPhone}
+              onChange={e => setCallerPhone(e.target.value)}
+              placeholder="Caller Phone (+880 / +91...)"
+              className="px-4 py-2.5 rounded-xl bg-bg-subtle border border-border-subtle text-text-primary text-xs sm:text-sm focus:outline-hidden focus:border-emergency-red"
+            />
+            <input
+              type="text"
+              value={sosNotes}
+              onChange={e => setSosNotes(e.target.value)}
+              placeholder="Condition (e.g. bitten by Russell's Viper, swelling...)"
+              className="px-4 py-2.5 rounded-xl bg-bg-subtle border border-border-subtle text-text-primary text-xs sm:text-sm focus:outline-hidden focus:border-emergency-red"
+            />
+            <button
+              type="submit"
+              disabled={isSosDispatching}
+              className="px-4 py-2.5 rounded-xl bg-emergency-red hover:bg-emergency-hover text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-xs disabled:opacity-50"
+            >
+              <Send className="w-4 h-4" />
+              <span>
+                {isSosDispatching ? 'Dispatching...' : 'Dispatch SOS Alert'}
+              </span>
+            </button>
+          </form>
+        )}
       </div>
 
       {/* 24/7 National Emergency Hotlines Cards */}
@@ -145,7 +282,7 @@ export default function EmergencyPage() {
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-brand-primary font-bold text-xs uppercase tracking-wider">
               <Building2 className="w-4 h-4" />
-              <span>Toxicology Centers</span>
+              <span>Toxicology Centers ({hospitals.length} Facilities)</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-text-primary">
               Designated Hospitals with Antivenom Supply
@@ -179,7 +316,7 @@ export default function EmergencyPage() {
 
         {/* Hospital List */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filteredHospitals.map(h => (
+          {hospitals.map(h => (
             <div
               key={h.id}
               className="p-5 rounded-2xl bg-bg-subtle border border-border-subtle space-y-3 flex flex-col justify-between"
@@ -209,13 +346,6 @@ export default function EmergencyPage() {
                 </div>
               </div>
 
-              <a
-                href={`tel:${h.hotline}`}
-                className="w-full py-2 px-3 rounded-xl bg-bg-surface border border-border-strong text-text-primary font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-bg-subtle transition-colors shadow-2xs"
-              >
-                <PhoneCall className="w-3.5 h-3.5 text-emergency-red" />
-                <span>Call {h.hotline}</span>
-              </a>
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <a
                   href={`tel:${h.hotline}`}

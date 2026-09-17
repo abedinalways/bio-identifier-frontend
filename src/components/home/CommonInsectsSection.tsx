@@ -14,16 +14,18 @@ import {
 import { useTranslation } from '../../i18n/LocaleContext';
 import { SpeciesModal } from './SpeciesModal';
 import { MOCK_PESTS } from '../../core/data/mockData';
+import { useGetPestsListQuery } from '../../store/api/pestApi';
 import type { IPest } from '../../core/interfaces';
 
 export const CommonInsectsSection: React.FC = () => {
   const { locale, t } = useTranslation();
+  const { data: pests = MOCK_PESTS } = useGetPestsListQuery();
   const [filter, setFilter] = useState<'all' | 'crop' | 'stinging'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPest, setSelectedPest] = useState<IPest | null>(null);
 
   const filteredPests = useMemo(() => {
-    return MOCK_PESTS.filter(pest => {
+    return pests.filter(pest => {
       // Filter tab
       if (filter === 'crop' && pest.category !== 'crop_pest') return false;
       if (filter === 'stinging' && pest.category !== 'stinging_insect')
@@ -37,7 +39,8 @@ export const CommonInsectsSection: React.FC = () => {
         ).toLowerCase();
         const enName = pest.commonName.en.toLowerCase();
         const sciName = pest.scientificName.toLowerCase();
-        const crops = pest.damageProfile.affectedCrops.join(' ').toLowerCase();
+        const crops =
+          pest.damageProfile?.affectedCrops?.join(' ').toLowerCase() || '';
         return (
           common.includes(q) ||
           enName.includes(q) ||
@@ -48,15 +51,15 @@ export const CommonInsectsSection: React.FC = () => {
 
       return true;
     });
-  }, [filter, searchQuery, locale]);
+  }, [filter, searchQuery, locale, pests]);
 
   const counts = useMemo(() => {
     return {
-      all: MOCK_PESTS.length,
-      crop: MOCK_PESTS.filter(p => p.category === 'crop_pest').length,
-      stinging: MOCK_PESTS.filter(p => p.category === 'stinging_insect').length,
+      all: pests.length,
+      crop: pests.filter(p => p.category === 'crop_pest').length,
+      stinging: pests.filter(p => p.category === 'stinging_insect').length,
     };
-  }, []);
+  }, [pests]);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

@@ -6,14 +6,16 @@ import { BookOpen, ShieldAlert, ShieldCheck } from 'lucide-react';
 import { useTranslation } from '../../../../src/i18n/LocaleContext';
 import { VenomAlertBadge } from '../../../../src/components/snakes/VenomAlertBadge';
 import { MOCK_SNAKES } from '../../../../src/core/data/mockData';
+import { useGetSnakesListQuery } from '../../../../src/store/api/snakeApi';
 
 export default function SnakeEncyclopediaPage() {
   const { locale } = useTranslation();
+  const { data: snakes = MOCK_SNAKES } = useGetSnakesListQuery();
   const [filter, setFilter] = useState<'all' | 'venomous' | 'harmless'>('all');
 
-  const filteredSnakes = MOCK_SNAKES.filter(snake => {
-    if (filter === 'venomous') return snake.venomProfile.isVenomous;
-    if (filter === 'harmless') return !snake.venomProfile.isVenomous;
+  const filteredSnakes = snakes.filter(snake => {
+    if (filter === 'venomous') return snake.venomProfile?.isVenomous;
+    if (filter === 'harmless') return !snake.venomProfile?.isVenomous;
     return true;
   });
 
@@ -47,7 +49,7 @@ export default function SnakeEncyclopediaPage() {
                 : 'text-text-secondary hover:text-text-primary'
             }`}
           >
-            All Species ({MOCK_SNAKES.length})
+            All Species ({snakes.length})
           </button>
           <button
             type="button"

@@ -5,15 +5,19 @@ import Image from 'next/image';
 import { BookOpen, Leaf } from 'lucide-react';
 import { useTranslation } from '../../../../src/i18n/LocaleContext';
 import { MOCK_PESTS } from '../../../../src/core/data/mockData';
+import { useGetPestsListQuery } from '../../../../src/store/api/pestApi';
 import type { CropType } from '../../../../src/core/types';
 
 export default function PestEncyclopediaPage() {
   const { locale } = useTranslation();
+  const { data: pests = MOCK_PESTS } = useGetPestsListQuery();
   const [selectedCrop, setSelectedCrop] = useState<string>('all');
 
-  const filteredPests = MOCK_PESTS.filter(pest => {
+  const filteredPests = pests.filter(pest => {
     if (selectedCrop === 'all') return true;
-    return pest.damageProfile.affectedCrops.includes(selectedCrop as CropType);
+    return pest.damageProfile?.affectedCrops?.includes(
+      selectedCrop as CropType,
+    );
   });
 
   return (

@@ -1,29 +1,40 @@
 import { baseApi } from './baseApi';
 import type { ISnake, IIdentificationResult } from '../../core/interfaces';
 import { MOCK_SNAKES } from '../../core/data/mockData';
+import {
+  adaptPrismaSnake,
+  adaptIdentificationResult,
+} from '../../core/adapters/speciesAdapter';
 
 export const snakeApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     identifySnake: builder.mutation<IIdentificationResult, FormData>({
       queryFn: async formData => {
         try {
-          // Attempt real API call to Nest.js backend
-          const response = await fetch('/api/v1/snakes/identify', {
+          if (!formData.has('domain')) {
+            formData.append('domain', 'snake');
+          }
+
+          const response = await fetch('/api/v1/identify/analyze', {
             method: 'POST',
             body: formData,
           });
 
           if (response.ok) {
-            const data = await response.json();
-            return { data };
+            const raw = await response.json();
+            const adapted = adaptIdentificationResult(raw.data || raw);
+            return { data: adapted };
           }
-        } catch {
-          // Fallback simulation when backend is not yet started
+          console.warn('Identify API returned non-OK status:', response.status);
+        } catch (err) {
+          console.warn(
+            'Backend identification unreachable, using offline fallback:',
+            err,
+          );
         }
 
-        // Resilient fallback for demonstration / offline use
-        // Simulates intelligent neural prediction based on mock data
-        const matchedSnake = MOCK_SNAKES[0]; // Russell's Viper for high-stakes demonstration
+        // Resilient fallback if offline
+        const matchedSnake = MOCK_SNAKES[0]; // Russell's Viper
         const result: IIdentificationResult = {
           id: `ident-${Date.now()}`,
           type: 'snake',
@@ -46,11 +57,12 @@ export const snakeApi = baseApi.injectEndpoints({
         try {
           const res = await fetch(`/api/v1/snakes/${id}`);
           if (res.ok) {
-            const data = await res.json();
-            return { data };
+            const json = await res.json();
+            const raw = json.data || json;
+            return { data: adaptPrismaSnake(raw) };
           }
-        } catch {
-          // fallback
+        } catch (err) {
+          console.warn(`Failed to fetch snake '${id}', using fallback:`, err);
         }
         const found = MOCK_SNAKES.find(s => s.id === id) || MOCK_SNAKES[0];
         return { data: found };
@@ -58,16 +70,37 @@ export const snakeApi = baseApi.injectEndpoints({
       providesTags: (_res, _err, id) => [{ type: 'Snakes', id }],
     }),
 
-    getSnakesList: builder.query<ISnake[], void>({
-      queryFn: async () => {
+    getSnakesList: builder.query<
+      ISnake[],
+      { isVenomous?: boolean; dangerLevel?: string; search?: string } | void
+    >({
+      queryFn: async query => {
         try {
-          const res = await fetch('/api/v1/snakes');
-          if (res.ok) {
-            const data = await res.json();
-            return { data };
+          const params = new URLSearchParams();
+          if (query) {
+            if (query.isVenomous !== undefined)
+              params.set('isVenomous', String(query.isVenomous));
+            if (query.dangerLevel) params.set('dangerLevel', query.dangerLevel);
+            if (query.search) params.set('search', query.search);
           }
-        } catch {
-          // fallback
+          const qs = params.toString() ? `?${params.toString()}` : '';
+
+          const res = await fetch(`/api/v1/snakes${qs}`);
+          if (res.ok) {
+            const json = await res.json();
+            const rawData = json.data || json;
+            const items = Array.isArray(rawData)
+              ? rawData
+              : rawData.items || [];
+            if (Array.isArray(items) && items.length > 0) {
+              return { data: items.map(adaptPrismaSnake) };
+            }
+          }
+        } catch (err) {
+          console.warn(
+            'Failed to fetch snakes from API, falling back to mock dataset:',
+            err,
+          );
         }
         return { data: MOCK_SNAKES };
       },
